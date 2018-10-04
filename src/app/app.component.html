@@ -1,20 +1,82 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<!--The content below is only a placeholder and can be replaced.
+we are creating a template which defined two input tafs 
+title and link
+
+-->
+<form class="ui large form segment">
+  <h3 class="ui header"> Add a Link</h3>
+  <br>
+  <br>
+    <div class="field">
+      <label for="title">Title:</label>
+      <!--this tells angular to bind the input of title to newtitel and #newtitle syntax is called resolve
+      newtitle is now an object that represent this input DOM elements
+       thats why we can use newtitle.value -->
+      <input name="title" #newtitle> <!--changed as per step 2:-->
+    </div>
+    
+    <br>
+    <br>
+
+    <div class="field">
+      <label for="link">Link:</label>
+      <!--in the input tags we used # to tell angular to assign those tags to a local variable
+      By adding the #newtitle and #newlink to the appropriate <input/> element , we can pass them as a variables into addArticle() on the button
+    -->
+      <input name="link" #newlink> <!--changed as per step 2:-->
+     
+    </div>
+    <br>
+    <br>
+<!--when the form is submitted, we want to call a function to create and add a link. we can do this by adding a submit button with clicl event-->
+    <button (click)="addArticle(newtitle,newlink)" class="ui positive right floated button">Submit Link
+    </button>
+    <!--class="ui positive right floated button" comes from sementics UI and gives the button the pleasent green color-->
+    <!--now we have to define addArticle() in appcomponent class-->
+    <br>
+    <br>
+</form>
+
+
+<!--
+  we did 4 steps here
+  1. created a button tag in our markup language that shows the user to click where
+  2. created function called addArticle() that defined what we want to do when the button is clicked
+  3. we added a (click) attribute on the button that says "call the function addArticle() when this button is pressed"
+  4. we added the attribute #newtitle and #newlink to the input tafs and passed inside button click function also as a input
+-->
+
+<!--Step 3.3 using app-article component
+  We want the AppComponent to render this new component to data visiablity
+-->
+
+
+<div class="ui grid posts">
+<!--appcomponent is storing an array of articles
+now lets configure appComponent to render all the articles
+for that we are using NgFor directive iterate and adding @Component in template-->
+  <!--<app-article
+    *ngFor="let article1 of articles" (showing unsorted)-->
+  <app-article
+    *ngFor="let article1 of sortedArticles()"
+    [article]="article1">
+  
+   
+    <!--we can pass a variable in an element by surronding it in square brackets[variableName]
+    we put a name of input in brackets here [article]
+    and the value of the attribute is what we want to pass into the input
+    so we are passing article1 value to our @Input in article.app.component.ts class
+
+    so in this case , we are saying that we want to set the article input to the value of the local variable article1 set by ngFor
+
+
+    Basically we have 3 variables:
+
+    1 articles which is an Array of Articles defined on the AppComponent
+    2. article1 which is singke element of articles defined by ngFor
+    3. article which is the name of the field defined on input of the ArticleComponent
+   -->
+  </app-article>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
 

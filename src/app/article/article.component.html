@@ -1,0 +1,75 @@
+<!-- 
+  
+  we created forms to submit the article but we havent displaying it in our application.
+  so we are creating new component for display individual submitted articles
+
+  we have 3 parts to defined this new component
+  3.1. Defined the ArticleComponent view in the template
+  3.2. Defined the ArticleComponent properties by annotating the class with           @Component
+  3.3. Defined a component-defination class(ArticleComponent) which houese our component logic
+-->
+
+<!--Step 3.1
+      creating the ArticleComponent template
+    Description:
+    
+    We have 2 columns :
+      1. the no of voes on the left
+      2. the article information on right
+
+      we specify these columns with the CSS classes class="four wild column center aligned votes" and class="twelve wide column".
+
+      We are showing votes and title with the template expression string {{votes}} and {{title}}. the value come from the value of votes and title property of the ArticleComponent class.
+
+      We are using template string in the attribut value as in href = "{{link}}". in this case the value of the href will be dynamically populated with the value of link from the component class
+
+      we are making upVote() and downVote() on click of upvote and downvote in ArticleComponent class
+
+    -->
+
+<div class="four wide column center aligned votes">
+  <div class="ui statistic">
+    <div class="value">
+      {{ article.votes }}
+    </div>
+    <div class="label">
+      Points
+    </div>
+  </div>
+</div>
+
+<div class="twelve wide column">
+  <a class="ui large header" href ="{{ article.link }}">
+    {{ article.title }}
+  </a>
+<!--added a hint next to the link that shows the domain where the user will be redirected to when rge link is clicked -->
+  <div class="meta"> ({{ article.domain() }})
+   
+  </div> 
+
+  <ul class="ui big horizontal list votes">
+    <!-- <li class="item"> -->
+      <a href (click)="voteUp()"> <!--space between href and (click) is necessory-->
+      
+        <i class ="arrow up icon"></i>
+          upvote
+      </a>
+    <!-- </li> -->
+
+    <!-- <li class="item"> -->
+      <a href (click)="voteDown()">
+        <i class ="arrow down icon" ></i>
+        downvote
+      </a>
+    <!-- </li> -->
+  </ul>
+</div>
+
+
+  <!--
+    As per law of Demeter: given object should assume a little as possible about the structure or properties of other object and here we are allowing article.votes to change the value in Article class.
+
+    to rectify it , we will add voteUp() and voteDown() function in Article class itself.
+
+
+  --> 
